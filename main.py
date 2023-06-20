@@ -10,11 +10,13 @@ testData = testFile['Description'].tolist()
 testLabel = testFile['Title'].tolist()
 
 
+# Function removes punctuations
 def removePunctuation(textRemovePun):
     textRemovePun = re.sub(r'[^\w\s]', '', textRemovePun)
     return textRemovePun
 
 
+# Function removes stopwords using nltk generated stopwords
 def removeStopwords(textRemoveStop):
     stopWords = set(stopwords.words('english'))
     tokens = word_tokenize(textRemoveStop)
@@ -22,6 +24,8 @@ def removeStopwords(textRemoveStop):
     textRemoveStop = ' '.join(filteredTokens)
     return textRemoveStop
 
+
+# Calls both functions for testData, to get label and description processed.
 
 cleanTestData = []
 for text in testData:
@@ -35,5 +39,6 @@ for label in testLabel:
     cleanLabel = removeStopwords(cleanLabel)
     cleanTestLabel.append(cleanLabel)
 
+# Save data in csv file with Label, Description.
 preprocessedFile = pd.DataFrame({'Label': cleanTestLabel, 'Description': cleanTestData})
 preprocessedFile.to_csv('preprocessedDescriptions.csv', index=False)

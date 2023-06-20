@@ -6,6 +6,9 @@ dataset['Topic'] = None
 dataset['TopicScore'] = None
 
 
+# Function use manually created keywords for 7 topics, after that keywords are used for specific description and
+# topic scores are counted, so if sport have like 5 keywords and other have less, topic will be sport
+# function return topic
 def assignTopic(text):
     sportKeywords = [
         'football', 'soccer', 'basketball', 'baseball', 'tennis', 'hockey', 'cricket', 'rugby', 'golf',
@@ -243,8 +246,12 @@ def assignTopic(text):
     return mostSuitableTopic
 
 
+# Combine topics in one array
 dataset['Topic'] = dataset['Description'].apply(assignTopic)
+# Counts each topic, to analyze which topic is most common in dataset
 topicCounts = dataset['Topic'].value_counts()
 print(topicCounts)
+
+# Save topic list in csv files
 preprocessedFile = pd.DataFrame(dataset['Topic'])
 preprocessedFile.to_csv('Topic.csv', index=False)
