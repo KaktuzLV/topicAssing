@@ -223,10 +223,12 @@ def assignTopic(text):
         if keyword in text:
             topicScores['science'] += 1
 
+    # Check for work topic
     for keyword in workKeywords:
         if keyword in text:
             topicScores['work'] += 1
 
+    # Check for political topic
     for keyword in politicalKeywords:
         if keyword in text:
             topicScores['political'] += 1
@@ -234,6 +236,7 @@ def assignTopic(text):
     maxScore = max(topicScores.values())
     mostSuitableTopic = 'other'
 
+    # Get most suitable topic
     if maxScore > 0:
         mostSuitableTopic = max(topicScores, key=topicScores.get)
 
